@@ -1,0 +1,2 @@
+docker build -t inpro_front_end .
+docker run -d --name inpro_front_end_container -p 5008:5008 inpro_front_end

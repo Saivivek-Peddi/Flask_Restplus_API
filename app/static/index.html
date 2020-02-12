@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>InPro</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
+<script src="http://ajax.aspnetcdn.com/ajax/jquery/jquery-1.9.0.js"></script>
+<script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+<script src="http://ajax.aspnetcdn.com/ajax/knockout/knockout-2.2.1.js"></script>
+</head>
+<body>
+    <div class="navbar">
+        <div class="navbar-inner">
+            <a class="brand" href="#">InPro API Client Demo</a>
+        </div>
+    </div>
+    <div id="main" class="container">
+        <table class="table table-striped">
+            <tr><td style="width: 1px;"></td><td><b>Investor</b></td><td><b>Options</b></td></tr>
+            <!-- ko foreach: tasks -->
+            <tr>
+                <td>
+                    <span data-bind="visible: done" class="label label-important">Possible Fraud</span>
+                    <span data-bind="visible: !done()" class="label label-success">Clean</span>
+                </td>
+                <td><p><b data-bind="text: Panno"></b></p><p data-bind="text: Invname"></p>
+                    <p data-bind="text: Profile"></p>
+                    <p data-bind="text: UIDs"></p>
+                    <p data-bind="text: Key_Words"></p>
+                    <p data-bind="text: External_Sources"></p>
+                    <p data-bind="text: No_of_Matches"></p>
+
+                </td>
+                <td>
+                    <button data-bind="click: $parent.beginEdit" class="btn">Edit</button>
+                    <button data-bind="click: $parent.remove" class="btn">Delete</button>
+                </td>
+            </tr>
+            <!-- /ko -->
+        </table>
+        <button data-bind="click: beginAdd" class="btn">Add Investor</button>
+    </div>
+    <div id="add" class="modal hide fade" tabindex="=1" role="dialog" aria-labelledby="addDialogLabel" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="addDialogLabel">Add Investor</h3>
+        </div>
+        <div class="modal-body">
+            <form class="form-horizontal">
+                <form class="form-horizontal">
+                    <div class="control-group">
+                        <label class="control-label" for="inputPanno">Panno</label>
+                        <div class="controls">
+                            <input data-bind="value: Panno" type="text" id="inputPanno" placeholder="Panno" style="width: 150px;">
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="inputInvname">Invname</label>
+                        <div class="controls">
+                            <input data-bind="value: Invname" type="text" id="inputInvname" placeholder="Name of the Investor" style="width: 300px;">
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="inputDOB">DOB</label>
+                        <div class="controls">
+                            <input data-bind="value: DOB" type="text" id="inputDOB" placeholder="DOB in dd/mm/yyyy" style="width: 300px;">
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="inputCity">City</label>
+                        <div class="controls">
+                            <input data-bind="value: City" type="text" id="inputCity" placeholder="City" style="width: 300px;">
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="inputCitizenship">Citizenship</label>
+                        <div class="controls">
+                            <input data-bind="value: Citizenship" type="text" id="inputCitizenship" placeholder="Citizenship" style="width: 300px;">
+                        </div>
+                    </div>
+                </form>
+        </div>
+        <div class="modal-footer">
+            <button data-bind="click: addTask" class="btn btn-primary">Add Investor</button>
+            <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+        </div>
+    </div>
+    <div id="edit" class="modal hide fade" tabindex="=1" role="dialog" aria-labelledby="editDialogLabel" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="editDialogLabel">Edit</h3>
+        </div>
+        <div class="modal-body">
+            <form class="form-horizontal">
+                
+                <div class="control-group">
+                    <label class="control-label" for="inputPanno">Panno</label>
+                    <div class="controls">
+                        <input data-bind="value: Panno" type="text" id="inputPanno" placeholder="Panno" style="width: 150px;">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="inputInvname">Invname</label>
+                    <div class="controls">
+                        <input data-bind="value: Invname" type="text" id="inputInvname" placeholder="Name" style="width: 300px;">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="inputDOB">DOB</label>
+                    <div class="controls">
+                        <input data-bind="value: DOB" type="text" id="inputDOB" placeholder="DOB in dd/mm/yyyy" style="width: 300px;">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="inputCity">City</label>
+                    <div class="controls">
+                        <input data-bind="value: City" type="text" id="inputCity" placeholder="City" style="width: 300px;">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="inputCitizenship">Citizenship</label>
+                    <div class="controls">
+                        <input data-bind="value: Citizenship" type="text" id="inputCitizenship" placeholder="Citizenship" style="width: 300px;">
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button data-bind="click:editTask" class="btn btn-primary">Update Task</button>
+            <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+        </div>
+    </div>
+    <div id="login" class="modal hide fade" tabindex="=1" role="dialog" aria-labelledby="loginLabel" aria-hidden="true">
+        <div class="modal-header">
+            <h3 id="loginLabel">Sign In</h3>
+        </div>
+        <div class="modal-body">
+            <form class="form-horizontal">
+                <div class="control-group">
+                    <label class="control-label" for="inputUsername">Username</label>
+                    <div class="controls">
+                        <input data-bind="value: username" type="text" id="inputUsername" placeholder="Username">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="inputPassword">Password</label>
+                    <div class="controls">
+                        <input data-bind="value: password" type="password" id="inputPassword" placeholder="Password">
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button data-bind="click: login" class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Sign In</button>
+        </div>
+    </div>
+    <script type="text/javascript">
+        function TasksViewModel() {
+            var self = this;
+            self.tasksURI = 'http://192.168.15.240:5008/todo/api/v1.0/tasks';
+            self.username = "";
+            self.password = "";
+            self.tasks = ko.observableArray();
+
+            self.ajax = function(uri, method, data) {
+                var request = {
+                    url: uri,
+                    type: method,
+                    contentType: "application/json",
+                    accepts: "application/json",
+                    cache: false,
+                    dataType: 'json',
+                    data: JSON.stringify(data),
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader("Authorization", 
+                            "Basic " + btoa(self.username + ":" + self.password));
+                    },
+                    error: function(jqXHR) {
+                        console.log("ajax error " + jqXHR.status);
+                    }
+                };
+                return $.ajax(request);
+            }
+            self.updateTask = function(task, newTask) {
+                var i = self.tasks.indexOf(task);
+                self.tasks()[i].uri(newTask.uri);
+                self.tasks()[i].Panno(newTask.Panno);
+                self.tasks()[i].Invname(newTask.Invname);
+                self.tasks()[i].DOB(newTask.DOB);
+                self.tasks()[i].City(newTask.City);
+                self.tasks()[i].Citizenship(newTask.Citizenship);
+            }
+
+            self.beginAdd = function() {
+                $('#add').modal('show');
+            }
+            self.add = function(task) {
+                self.ajax(self.tasksURI, 'POST', task).done(function(data) {
+                    self.tasks.push({
+                        uri: ko.observable(data.task.uri),
+                        Panno: ko.observable(data.task.Panno),
+                        Invname: ko.observable(data.task.Invname),
+                        DOB: ko.observable(data.task.DOB),
+                        City: ko.observable(data.task.City),
+                        Citizenship: ko.observable(data.task.Citizenship),
+                        Key_Words: ko.observable(data.task.Key_Words),
+                        Year_Original: ko.observable(data.task.Year_Original),
+                        Day_Original: ko.observable(data.task.Day_Original),
+                        Month_Original: ko.observable(data.task.Month_Original),
+                        UIDs: ko.observable(data.task.UIDs),
+                        No_of_Matches: ko.observable(data.task.No_of_Matches),
+                        External_Sources: ko.observable(data.task.External_Sources),
+                        done: ko.observable(data.task.done),
+                        Profile: ko.observable(data.task.Profile)
+                    });
+                });
+            }
+            self.beginEdit = function(task) {
+                editTaskViewModel.setTask(task);
+                $('#edit').modal('show');
+            }
+            self.edit = function(task, data) {
+                self.ajax(task.uri(), 'PUT', data).done(function(res) {
+                    self.updateTask(task, res.task);
+                });
+            }
+            self.remove = function(task) {
+                self.ajax(task.uri(), 'DELETE').done(function() {
+                    self.tasks.remove(task);
+                });
+            }
+            self.markInProgress = function(task) {
+                self.ajax(task.uri(), 'PUT', { done: false }).done(function(res) {
+                    self.updateTask(task, res.task);
+                });
+            }
+            self.markDone = function(task) {
+                self.ajax(task.uri(), 'PUT', { done: true }).done(function(res) {
+                    self.updateTask(task, res.task);
+                });
+            }
+            self.beginLogin = function() {
+                $('#login').modal('show');
+            }
+            self.login = function(username, password) {
+                self.username = username;
+                self.password = password;
+                self.ajax(self.tasksURI, 'GET').done(function(data) {
+                    // console.log("entered")
+                    for (var i = 0; i < data.tasks.length; i++) {
+                        self.tasks.push({
+                            uri: ko.observable(data.tasks[i].uri),
+                            Panno: ko.observable(data.tasks[i].Panno),
+                            Invname: ko.observable(data.tasks[i].Invname),
+                            DOB: ko.observable(data.tasks[i].DOB),
+                            City: ko.observable(data.tasks[i].City),
+                            Citizenship: ko.observable(data.tasks[i].Citizenship),
+                            Year_Original: ko.observable(data.tasks[i].Year_Original),
+                            Day_Original: ko.observable(data.tasks[i].Day_Original),
+                            Month_Original: ko.observable(data.tasks[i].Month_Original),
+                            Key_Words: ko.observable(data.tasks[i].Key_Words),
+                            External_Sources: ko.observable(data.tasks[i].External_Sources),
+                            UIDs: ko.observable(data.tasks[i].UIDs),
+                            No_of_Matches: ko.observable(data.tasks[i].No_of_Matches),
+                            Profile: ko.observable(data.tasks[i].Profile),
+                            done: ko.observable(data.tasks[i].done)
+                        });
+                    }
+                }).fail(function(jqXHR) {
+                    if (jqXHR.status == 403)
+                        setTimeout(self.beginLogin, 500);
+                });
+            }
+            
+            self.beginLogin();
+        }
+        function AddTaskViewModel() {
+            var self = this;
+            self.Panno = ko.observable();
+            self.Invname = ko.observable();
+            self.DOB = ko.observable();
+            self.City = ko.observable();
+            self.Citizenship = ko.observable();
+ 
+            self.addTask = function() {
+                $('#add').modal('hide');
+                tasksViewModel.add({
+                    Panno: self.Panno(),
+                    Invname: self.Invname(),
+                    DOB: self.DOB(),
+                    City: self.City(),
+                    Citizenship: self.Citizenship(),
+                });
+                self.Panno("");
+                self.Invname("");
+                self.DOB("");
+                self.City("");
+                self.Citizenship("");
+            }
+        }
+        function EditTaskViewModel() {
+            var self = this;
+            self.Panno = ko.observable();
+            self.Invname = ko.observable();
+            self.DOB = ko.observable();
+            self.City = ko.observable();
+            self.Citizenship = ko.observable();
+ 
+            self.setTask = function(task) {
+                self.task = task;
+                self.Panno(task.Panno());
+                self.Invname(task.Invname());
+                self.DOB(task.DOB());
+                self.City(task.City());
+                self.Citizenship(task.Citizenship());
+                $('edit').modal('show');
+            }
+ 
+            self.editTask = function() {
+                $('#edit').modal('hide');
+                tasksViewModel.edit(self.task, {
+                    Panno: self.Panno(),
+                    Invname: self.Invname() ,
+                    DOB: self.DOB(),
+                    City: self.City() ,
+                    Citizenship: self.Citizenship()
+                });
+            }
+        }
+        function LoginViewModel() {
+            var self = this;
+            self.username = ko.observable();
+            self.password = ko.observable();
+ 
+            self.login = function() {
+                $('#login').modal('hide');
+                tasksViewModel.login(self.username(), self.password());
+            }
+        }
+        
+        var tasksViewModel = new TasksViewModel();
+        var addTaskViewModel = new AddTaskViewModel();
+        var editTaskViewModel = new EditTaskViewModel();
+        var loginViewModel = new LoginViewModel();
+        // console.log("1");
+        ko.applyBindings(tasksViewModel, $('#main')[0]);
+        // console.log("2");
+        ko.applyBindings(addTaskViewModel, $('#add')[0]);
+        // console.log("3");
+        ko.applyBindings(editTaskViewModel, $('#edit')[0]);
+        // console.log("4");
+        ko.applyBindings(loginViewModel, $('#login')[0]);
+        // console.log("5");
+    </script>
+</body>
+</html>
